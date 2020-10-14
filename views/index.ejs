@@ -7,6 +7,12 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <title>Grid fs file upload</title>
+
+    <style>
+        img {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -20,6 +26,26 @@
                 </div>
                 <input type="submit" value="Upload" class="btn btn-primary btn-block">
                 </form>
+                <hr>
+                <%if (files) { %>
+                    
+                    <% files.forEach(function(file) { %>  
+                         <div class="card card-body mb-3">
+                             <% if(file.isImage) { %> 
+                                <img src="images/<%= file.filename %>">
+                             <% } else { %>
+                                <%= file.filename %> 
+                             <% } %> 
+                             <form action="/files/<%= file._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger btn-block btn-lg">Delete</button>
+                            </form>
+                         </div>
+                   <% } ) %>  
+
+
+                <%} else { %>
+                    <p>There are no files to show</p>
+                <%} %>
             </div>
         </div>
     </div>
